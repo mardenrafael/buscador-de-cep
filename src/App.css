@@ -16,3 +16,15 @@
 .input-container {
   min-height: 15vh;
 }
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.cep-list {
+  list-style-type: none;
+}
