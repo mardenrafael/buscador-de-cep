@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import cep from "cep-promise";
 
 class CEP_search extends React.Component {
@@ -17,6 +17,8 @@ class CEP_search extends React.Component {
         this.handleClickButton = this.handleClickButton.bind(this)
 
     }
+
+
 
 
     render() {
