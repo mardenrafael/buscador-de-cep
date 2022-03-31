@@ -1,59 +1,81 @@
 import React, { useState, useEffect } from "react";
 import cep from "cep-promise";
 
-class CEP_search extends React.Component {
 
-    constructor(props) {
-        super(props)
+/*
+    Fazer a chamada para API cep-promise
+    CHecar se o input esta correto
+    Formatar o JSON que retorna
+    Exibir o resultado para o usuario
+*/
 
-        this.state = {
-        inputValue: "",
-        cepResponse: "",
-        elementsVisiblity: "hide"
+function CEP_search(props) {
+
+
+    const[inputValue, setInputValue] = useState("");
+    const[response, setResponse] = useState({});
+
+    function handleChangeInput(event) {
+        setInputValue(event.target.value)
+    }
+
+    function handleSubmit() {
+        if (isValid(inputValue)) {
+            console.log(inputValue)
         }
-        
-
-        this.handleIputChange = this.handleIputChange.bind(this)
-        this.handleClickButton = this.handleClickButton.bind(this)
-
     }
 
 
+    /**
+     * @param {String} obj String to valided
+     * @returns {Boolean} return true if the obj is a Number and lenght is 8
+     */
+    function isValid(obj) {
+        if (isNaN(parseInt(obj)) || obj.length != 8) {
+            return false
+        } else {
+            return true
+        }
+    }
 
 
-    render() {
+    useEffect(() => {
+        if ( inputValue != "") {
+            console.log("Effect")
+        }
+    })
+
         return(
         <div className='input-container'>
-            <input type={'text'} placeholder='Insira o CEP para pesquisar' onChange={this.handleIputChange}></input>
+            <input type={'text'} placeholder='Insira o CEP para pesquisar' onChange={handleChangeInput}></input>
             
-            <button onClick={this.handleClickButton}>pesquisar</button>
+            <button onClick={handleSubmit}>pesquisar</button>
 
-            <h3 className={this.state.elementsVisiblity}>
+            <h3>
             Confira se o CEP informado tem 8 (oito) numeros e não possua letras!!
             </h3>
         
             <div className='response-container'>
             <ul className='cep-list'>
                 <li>
-                CEP: {this.state.cepResponse.cep}
+                CEP: {}
                 </li>
                 <li>
-                Estado: {this.state.cepResponse.state}
+                Estado: {}
                 </li>
                 <li>
-                Cidade: {this.state.cepResponse.city}
+                Cidade: {}
                 </li>
                 <li>
-                Rua: {this.state.cepResponse.street}
+                Rua: {}
                 </li>
                 <li>
-                bairro: {this.state.cepResponse.neighborhood}
+                bairro: {}
                 </li>
             </ul>
             </div>
         </div>
         );
-    }
 }
 
 export default CEP_search
