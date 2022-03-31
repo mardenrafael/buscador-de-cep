@@ -25,7 +25,7 @@ function CEP_search(props) {
     }
 
     function isValid(obj) {
-        if (isNaN(parseInt(obj)) || obj.length != 8) {
+        if (isNaN(parseInt(obj)) || obj.length !== 8) {
             return false
         } else {
             return true
