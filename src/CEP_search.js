@@ -19,12 +19,11 @@ function CEP_search(props) {
         setInputValue(event.target.value)
     }
 
-    function handleSubmit() {
-        if (isValid(inputValue)) {
-            console.log(inputValue)
-        }
-    }
 
+    function fecthCepData(cepToSearch) {
+        cep(cepToSearch)
+        .then((resp) => { setResponse(resp) })
+    }
 
     /**
      * @param {String} obj String to valided
@@ -40,16 +39,14 @@ function CEP_search(props) {
 
 
     useEffect(() => {
-        if ( inputValue != "") {
-            console.log("Effect")
+        if ( isValid(inputValue) ) {
+            fecthCepData(inputValue)
         }
-    })
+    }, [inputValue])
 
         return(
         <div className='input-container'>
             <input type={'text'} placeholder='Insira o CEP para pesquisar' onChange={handleChangeInput}></input>
-            
-            <button onClick={handleSubmit}>pesquisar</button>
 
             <h3>
             Confira se o CEP informado tem 8 (oito) numeros e não possua letras!!
