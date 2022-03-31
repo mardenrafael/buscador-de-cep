@@ -1,28 +1,31 @@
 import React, { useState, useEffect } from "react";
+import "./CEPSearch.css";
 import cep from "cep-promise";
 
 
-/*
-    Fazer a chamada para API cep-promise
-    CHecar se o input esta correto
-    Formatar o JSON que retorna
-    Exibir o resultado para o usuario
-*/
 
 function CEP_search(props) {
 
 
     const[inputValue, setInputValue] = useState("");
     const[response, setResponse] = useState({});
+    const[visibiltyController, setVisibilty] = useState(false);
 
     function handleChangeInput(event) {
         setInputValue(event.target.value)
     }
 
+    async function fecthCepData(cepToSearch) {
 
-    function fecthCepData(cepToSearch) {
-        cep(cepToSearch)
-        .then((resp) => { setResponse(resp) })
+        try {
+
+            const cepResponse = await cep(cepToSearch);
+            setResponse(cepResponse);
+            setVisibilty(true)
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     /**
@@ -37,7 +40,6 @@ function CEP_search(props) {
         }
     }
 
-
     useEffect(() => {
         if ( isValid(inputValue) ) {
             fecthCepData(inputValue)
@@ -46,28 +48,29 @@ function CEP_search(props) {
 
         return(
         <div className='input-container'>
-            <input type={'text'} placeholder='Insira o CEP para pesquisar' onChange={handleChangeInput}></input>
+            <label htmlFor="cep-input">Insira o CEP:</label>
+            <input type={'text'} placeholder='xxxxxxxx' id="cep-input" onChange={handleChangeInput}></input>
 
             <h3>
-            Confira se o CEP informado tem 8 (oito) numeros e não possua letras!!
+                Confira se o CEP informado tem 8 (oito) numeros e que não possua letras nem simbolos!!
             </h3>
         
-            <div className='response-container'>
+            <div className={visibiltyController ? "show" : "hide" }>
             <ul className='cep-list'>
                 <li>
-                CEP: {}
+                CEP: {response.cep}
                 </li>
                 <li>
-                Estado: {}
+                Estado: {response.state}
                 </li>
                 <li>
-                Cidade: {}
+                Cidade: {response.city}
                 </li>
                 <li>
-                Rua: {}
+                Rua: {response.street}
                 </li>
                 <li>
-                bairro: {}
+                bairro: {response.neighborhood}
                 </li>
             </ul>
             </div>
