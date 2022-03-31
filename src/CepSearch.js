@@ -1,31 +1,8 @@
 import React, { useState, useEffect } from "react";
+import CepList from "./CepList"
 import "./CEPSearch.css";
 import cep from "cep-promise";
 
-
-function CepList(props) {
-    
-    return(
-        <ul className='cep-list'>
-        <li>
-        CEP: {response.cep}
-        </li>
-        <li>
-        Estado: {response.state}
-        </li>
-        <li>
-        Cidade: {response.city}
-        </li>
-        <li>
-        Rua: {response.street}
-        </li>
-        <li>
-        bairro: {response.neighborhood}
-        </li>
-    </ul>
-    )
-
-}
 
 
 function CEP_search(props) {
@@ -34,6 +11,8 @@ function CEP_search(props) {
     const[inputValue, setInputValue] = useState("");
     const[response, setResponse] = useState({});
     const[visibiltyController, setVisibilty] = useState(false);
+    
+
 
     function handleChangeInput(event) {
         setInputValue(event.target.value)
@@ -45,17 +24,14 @@ function CEP_search(props) {
 
             const cepResponse = await cep(cepToSearch);
             setResponse(cepResponse);
-            setVisibilty(true)
+            setVisibilty(true);
+            
 
         } catch (error) {
             
         }
     }
 
-    /**
-     * @param {String} obj String to valided
-     * @returns {Boolean} return true if the obj is a Number and lenght is 8
-     */
     function isValid(obj) {
         if (isNaN(parseInt(obj)) || obj.length != 8) {
             return false
@@ -70,9 +46,12 @@ function CEP_search(props) {
         }
     }, [inputValue])
 
+
+    
+
         return(
         <div className='input-container'>
-            <label htmlFor="cep-input">Insira o CEP:</label>
+            <label htmlFor="cep-input">Insira o CEP: </label>
             <input type={'text'} placeholder='xxxxxxxx' id="cep-input" onChange={handleChangeInput}></input>
 
             <h3>
@@ -80,7 +59,7 @@ function CEP_search(props) {
             </h3>
         
             <div className={visibiltyController ? "show" : "hide" }>
-                <CepList />
+                <CepList response={response}/>
             </div>
         </div>
         );
