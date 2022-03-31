@@ -19,17 +19,9 @@ function CEP_search(props) {
     }
 
     async function fecthCepData(cepToSearch) {
-
-        try {
-
-            const cepResponse = await cep(cepToSearch);
-            setResponse(cepResponse);
-            setVisibilty(true);
-            
-
-        } catch (error) {
-            
-        }
+        const cepResponse = await cep(cepToSearch);
+        setResponse(cepResponse);
+        setVisibilty(true);
     }
 
     function isValid(obj) {
