@@ -3,6 +3,30 @@ import "./CEPSearch.css";
 import cep from "cep-promise";
 
 
+function CepList(props) {
+    
+    return(
+        <ul className='cep-list'>
+        <li>
+        CEP: {response.cep}
+        </li>
+        <li>
+        Estado: {response.state}
+        </li>
+        <li>
+        Cidade: {response.city}
+        </li>
+        <li>
+        Rua: {response.street}
+        </li>
+        <li>
+        bairro: {response.neighborhood}
+        </li>
+    </ul>
+    )
+
+}
+
 
 function CEP_search(props) {
 
@@ -24,7 +48,7 @@ function CEP_search(props) {
             setVisibilty(true)
 
         } catch (error) {
-            console.log(error)
+            
         }
     }
 
@@ -56,23 +80,7 @@ function CEP_search(props) {
             </h3>
         
             <div className={visibiltyController ? "show" : "hide" }>
-            <ul className='cep-list'>
-                <li>
-                CEP: {response.cep}
-                </li>
-                <li>
-                Estado: {response.state}
-                </li>
-                <li>
-                Cidade: {response.city}
-                </li>
-                <li>
-                Rua: {response.street}
-                </li>
-                <li>
-                bairro: {response.neighborhood}
-                </li>
-            </ul>
+                <CepList />
             </div>
         </div>
         );

@@ -1,11 +1,7 @@
-.show {
-    display: block;
-  }
-  
-  .hide {
+.hide {
     display: none;
-  }
-  
-  .cep-list {
+}
+
+.cep-list {
     list-style-type: none;
-  }
+}
